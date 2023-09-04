@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Upload Demo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+        <style>
+            figure {
+              /* border: 1px #cccccc solid; */
+              padding: 4px;
+              margin: auto;
+            }
+            
+            figcaption {
+              /* background-color: black; */
+              color: white;
+              font-style: italic;
+              padding: 3px;
+              text-align: center;
+            }
+        </style>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">Human Analysis</a></h1>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="{{ url_for('static', filename='uploads/') }}{{ filename }}">
+                        <figcaption>Image</figcaption>
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="data:image/jpeg;base64,{{ pose_img }}">
+                        <figcaption>Pose</figcaption>
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="data:image/jpeg;base64,{{ mask_img }}">
+                        <figcaption>Segmentation</figcaption>
+                    </figure>
+                    <br>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="data:image/jpeg;base64,{{ part_img }}" style="filter:opacity(0.0);">
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="data:image/jpeg;base64,{{ part_img }}">
+                        <figcaption>Part Segmentation</figcaption>
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="data:image/jpeg;base64,{{ mesh_img }}">
+                        <figcaption>Body Mesh</figcaption>
+                    </figure>
+
+					
+					<!-- <iframe style="display: none;" id="myframe"/> -->
+				</section>
+
+
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Live Demo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+        <style>
+            figure {
+              /* border: 1px #cccccc solid; */
+              padding: 4px;
+              margin: auto;
+            }
+            
+            figcaption {
+              /* background-color: black; */
+              color: white;
+              font-style: italic;
+              padding: 3px;
+              text-align: center;
+            }
+        </style>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">Human Analysis</a></h1>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<div hidden="hidden">
+						<video id="video" width="512px" height="512px" autoplay="autoplay"></video>
+						<canvas id="canvas" width="512px" height="512px"></canvas>
+					</div>
+                    
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="{{url_for('video_pose_feed')}}">
+                        <figcaption>Pose</figcaption>
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="{{url_for('video_mask_feed')}}">
+                        <figcaption>Segmentation</figcaption>
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="{{url_for('video_part_feed')}}">
+                        <figcaption> Part Segmentation</figcaption>
+                    </figure>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="{{url_for('video_mesh_feed')}}">
+                        <figcaption> Body Mesh</figcaption>
+                    </figure>
+
+
+				</section>
+
+		</div>
+	<script>
+    //获得video摄像头区域
+    let video = document.getElementById("video");
+    function getMedia() {
+        let constraints = {
+            video: {width: 512, height: 512},
+            audio: false
+        };
+        /*
+        这里介绍新的方法:H5新媒体接口 navigator.mediaDevices.getUserMedia()
+        这个方法会提示用户是否允许媒体输入,(媒体输入主要包括相机,视频采集设备,屏幕共享服务,麦克风,A/D转换器等)
+        返回的是一个Promise对象。
+        如果用户同意使用权限,则会将 MediaStream对象作为resolve()的参数传给then()
+        如果用户拒绝使用权限,或者请求的媒体资源不可用,则会将 PermissionDeniedError作为reject()的参数传给catch()
+        */
+        let promise = navigator.mediaDevices.getUserMedia(constraints);
+        promise.then(function (MediaStream) {
+            video.srcObject = MediaStream;
+            video.play();
+        }).catch(function (PermissionDeniedError) {
+            console.log(PermissionDeniedError);
+        })
+    }
+    getMedia();
+    //图片上传到服务器
+    //获取Canvas的编码
+    <!--var video = document.getElementById('video');-->
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    function uploadImage(){
+        canvas.width = 512;
+        canvas.height = 512;
+        context.drawImage(video, 0, 0, 512, 512);
+        var imgData = canvas.toDataURL("image/jpg");
+        imgData = imgData.replace(/^data:image\/(png|jpg);base64,/,"")
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/live/receiveimage");
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Do what you want with this.responseText
+            }
+        };
+        //beforeSend(xhr);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify({"imgData": imgData}));
+        setTimeout(uploadImage, 100);
+    }
+    uploadImage();
+</script>
+	</body>
+</html>

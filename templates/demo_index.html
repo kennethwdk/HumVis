@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Human Analysis Demo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<style>			
+			.marquee {
+			--gap: 0px;
+			position: relative;
+			display: flex;
+			overflow: hidden;
+			user-select: none;
+			gap: var(--gap);
+			}
+
+			.marquee__content {
+			flex-shrink: 0;
+			display: flex;
+			gap: var(--gap);
+			min-width: 100%;
+			padding: 0px;
+			}
+
+			@keyframes scroll {
+			from {
+				transform: translateX(0);
+			}
+			to {
+				transform: translateX(calc(-100% - var(--gap)));
+			}
+			}
+
+			/* Enable animation */
+			.marquee__content {
+			animation: scroll 10s linear infinite;
+			}
+
+			/* Pause on hover */
+			.marquee--hover-pause:hover .marquee__content {
+			animation-play-state: paused;
+			}
+
+		</style>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<div class="marquee marquee--hover-pause">
+						<ul class="marquee__content">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/image.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mask.png') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/part.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/2dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/3dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/dp.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mesh.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/image.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mask.png') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/part.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/2dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/3dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/dp.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mesh.jpg') }}">
+						</ul>
+
+						<ul aria-hidden="true" class="marquee__content">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/image.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mask.png') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/part.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/2dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/3dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/dp.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mesh.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/image.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mask.png') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/part.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/2dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/3dkpt.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/dp.jpg') }}">
+						<img width="200px" height="auto" src="{{ url_for('static', filename='img/mesh.jpg') }}">
+						</ul>
+					</div>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<br>
+					<br>
+					<br>
+					<br>
+					<h2>HumVis</h2>
+					<br>
+					<p>A demo for human pose&shape visualization</p>
+					<br>
+					<ul class="actions special">
+						<li><a href="live" class="button primary">Live</a></li>
+						<li><a href="upload" class="button">Upload</a></li>
+					</ul>
+
+				</section>
+
+
+		</div>
+
+	</body>
+</html>

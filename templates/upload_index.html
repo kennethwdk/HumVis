@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Upload Demo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+        <script>
+            $(function() {
+                //当点击"一键上传"按钮的时候,触发表单中的浏览文件的操作
+                $("#hehe").click(function() {
+                    $("#uploadfile").click();
+                })
+                //当选择好上传文件后,执行提交表单的操作
+                $("#uploadfile").change(function() {
+					var file = $(this)[0].files[0];
+        			if (validate_img(file))
+						$("#uploadtip").show();
+                    	$("#form1").submit();
+                })
+				$("#video_upload").click(function() {
+                    $("#uploadvideo").click();
+                })
+                //当选择好上传文件后,执行提交表单的操作
+                $("#uploadvideo").change(function() {
+					var file = $(this)[0].files[0];
+					if (validate_video(file))
+						$("#uploadtip").show();
+        				$("#form2").submit();
+                })
+            })
+			function validate_img(file) {
+				var type = file['type'];
+				if (type.split('/')[0] != 'image') {
+					alert("只接受图片格式的文件");
+					return false;
+				}
+				else if (file.size >= 3 * 1024 * 1024) {
+					alert("请上传小于3M的图片");
+					return false;
+				}
+				return true;
+			}
+			function validate_video(file) {
+				var type = file['type'];
+				if (type.split('/')[0] != 'video') {
+					alert("只接受图片格式的文件");
+					return false;
+				}
+				// else if (file.size >= 3 * 1024 * 1024) {
+				// 	alert("请上传小于3M的图片");
+				// 	return false;
+				// }
+				return true;
+			}
+        </script>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">Human Analysis</a></h1>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<h2>Upload Demo</h2>
+					<p>Upload image or video for visualization</p>
+					<!-- <a href="live" class="button primary">Upload</a> -->
+					<input type="button" id="hehe" value="Image" />
+
+					<form style="display: none;" id="form1" method="post" enctype="multipart/form-data">
+						<input type="file" name="image" id="uploadfile" />
+					</form>
+
+					<input type="button" id="video_upload" value="Video" />
+					<form style="display: none;" id="form2" method="post" enctype="multipart/form-data">
+						<input type="file" name="video" id="uploadvideo" />
+					</form>
+					<div class="loading" id="uploadtip" style="display:none;">
+						<!-- <img src="{{ url_for('static', filename='img/uploading.gif') }}"> -->
+						<span>Waiting...</span>
+					</div>
+					<br>
+                    <figure style="display:inline-block;padding:10px;">
+                        <img width="300px" height="auto" src="{{ url_for('static', filename='img/fig1.png') }}" style="filter:opacity(0.0);">
+                    </figure>
+					<!-- <iframe style="display: none;" id="myframe"/> -->
+				</section>
+
+
+		</div>
+		
+	</body>
+</html>
