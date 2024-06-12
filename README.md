@@ -1,15 +1,22 @@
 # HumVis: Human-Centric Visual Analysis System
 
-[[`Paper`]()]
+[[`Paper`](https://dl.acm.org/doi/pdf/10.1145/3581783.3612663)]
 
-> [HumVis: Human-Centric Visual Analysis System]()  
-> Dongkai Wang, Shiliang Zhang, Yaowei Wang, Yonghong Tian, Tiejun Huang, Wen Gao
-> ACM MM 2023 Demo 
+> [HumVis: Human-Centric Visual Analysis System](https://dl.acm.org/doi/10.1145/3581783.3612663)  
+> Dongkai Wang, Shiliang Zhang, Yaowei Wang, Yonghong Tian, Tiejun Huang, Wen Gao  
+> ACM MM 2023 *Demo*
 
 ## Installation
 Please refer to INSTALL.md
 
 ## Usage
+
+Clone model weights by
+```shell
+    git lfs install
+    git clone https://huggingface.co/d0ntcare/HumVis
+    mv HumVis model_files
+```
 
 Run demo by
 
@@ -19,6 +26,16 @@ CUDA_VISIBLE_DEVICES=0 python app.py
 
 ## Citations
 If you find this code useful for your research, please cite our paper:
+
+```
+@inproceedings{10.1145/3581783.3612663,
+author = {Wang, Dongkai and Zhang, Shiliang and Wang, Yaowei and Tian, Yonghong and Huang, Tiejun and Gao, Wen},
+title = {HumVis: Human-Centric Visual Analysis System},
+year = {2023},
+booktitle = {Proceedings of the 31st ACM International Conference on Multimedia},
+pages = {9396–9398}
+}
+```
 
 ```
 @ARTICLE{10040902,
